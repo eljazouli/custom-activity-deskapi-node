@@ -14,15 +14,11 @@
   },
   "arguments": {
     "execute": {
-      "inArguments": [{
-        "firstName": "{{Contact.Attribute.Master_Subscriber.FirstName}}"
-      }, {
-        "lastName": "{{Contact.Attribute.Master_Subscriber.LastName}}"
-      }, {
-        "emailAddress": "{{Contact.Attribute.Master_Subscriber.Email}}"
-      }],
+      "inArguments": [
+
+    ],
       "outArguments": [{
-        "caseID": "number"
+
       }],
       "url": "https://custom-activity-zakaria.herokuapp.com/ixn/activities/create-case/execute/",
       "verb": "POST",

@@ -1,16 +1,16 @@
 define( function( require ) {
 
     'use strict';
-    
+
 	var Postmonger = require( 'postmonger' );
 	var $ = require( 'vendor/jquery.min' );
 
     var connection = new Postmonger.Session();
     var toJbPayload = {};
-    var step = 1; 
+    var step = 1;
 	var tokens;
 	var endpoints;
-	
+
     $(window).ready(onRender);
 
     connection.on('initActivity', function(payload) {
@@ -19,31 +19,31 @@ define( function( require ) {
         if (payload) {
             toJbPayload = payload;
             console.log('payload',payload);
-            
+
 			//merge the array of objects.
 			var aArgs = toJbPayload['arguments'].execute.inArguments;
 			var oArgs = {};
-			for (var i=0; i<aArgs.length; i++) {  
-				for (var key in aArgs[i]) { 
-					oArgs[key] = aArgs[i][key]; 
+			for (var i=0; i<aArgs.length; i++) {
+				for (var key in aArgs[i]) {
+					oArgs[key] = aArgs[i][key];
 				}
 			}
 			//oArgs.priority will contain a value if this activity has already been configured:
-			priority = oArgs.priority || toJbPayload['configurationArguments'].defaults.priority;            
+			priority = oArgs.priority || toJbPayload['configurationArguments'].defaults.priority;
         }
-        
+
 		$.get( "/version", function( data ) {
 			$('#version').html('Version: ' + data.version);
-		});                
+		});
 
         // If there is no priority selected, disable the next button
         if (!priority) {
             connection.trigger('updateButton', { button: 'next', enabled: false });
         }
 
-		$('#selectPriority').find('option[value='+ priority +']').attr('selected', 'selected');		
+		$('#selectPriority').find('option[value='+ priority +']').attr('selected', 'selected');
 		gotoStep(step);
-        
+
     });
 
     connection.on('requestedTokens', function(data) {
@@ -51,7 +51,7 @@ define( function( require ) {
 			console.error( data.error );
 		} else {
 			tokens = data;
-		}        
+		}
     });
 
     connection.on('requestedEndpoints', function(data) {
@@ -59,7 +59,7 @@ define( function( require ) {
 			console.error( data.error );
 		} else {
 			endpoints = data;
-		}        
+		}
     });
 
     connection.on('clickedNext', function() {
@@ -129,10 +129,9 @@ define( function( require ) {
         toJbPayload['configurationArguments'].partnerActivityId = '49198498';
         toJbPayload['configurationArguments'].myConfiguration = 'configuration coming from iframe';
 		*/
-		
+
 		toJbPayload.metaData.isConfigured = true;  //this is required by JB to set the activity as Configured.
         connection.trigger('updateActivity', toJbPayload);
-    }; 
-    	 
+    };
+
 });
-			
