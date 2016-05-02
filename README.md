@@ -141,13 +141,13 @@ When your interaction trigger is fired, the payload you send will be for either 
     * Package: &lt;THIS MUST BE UNIQUE ACROSS ALL OF EXACTTARGET&gt; (I recommend something like johndoe-jb-custom-activity-deskapi) where you replace johndoe with your first and last name
     * Would you like to use an existing App ID: No
     * Application Event Callbacks: Not required
-    
+
 5. Integrate your app with an account which will use this activity.
 	* It's helpful if are already logged into the Marketing Cloud account that you want to integrate with, before reaching this step.
 	* If you do not see your account in the drop down, select 'New'.
 	* If you are not logged into the account, it will direct you to login.
 	* If you are already logged in, it will ask you to confirm that you want to integrate with the account.
-	
+
 6. Data Access: No (SSO Only)
 
 7. Make sure everything is correct.  Take note of the appID, app signature, clientID, and client secret.  These will be pasted into the code.
@@ -157,7 +157,7 @@ When your interaction trigger is fired, the payload you send will be for either 
 
 1. Select the Journey Builder Activity tab and click the plus sign (+) to begin creating an entry.
 	* Name: Create Case
-	* Key: johndoe-jb-example-activity-desk-create-case  (this key will be used in the config.json file)
+	* Key: johndoe-j-example-activity-desk-create-case  (this key will be used in the config.json file)
 	* Description: Create a case via Desk.com API
 	* Endpoint URL: https://&lt;your sub domain here&gt;.herokuapp.com/ixn/activities/create-case  (wherever you plan to host the app; can be edited later)
 	* Help URL/Description: Not required
@@ -214,7 +214,7 @@ When your interaction trigger is fired, the payload you send will be for either 
 
 <pre>
 <code>
-headers: 
+headers:
 Authorization: Bearer &lt;token&gt;
 Content-Type: application/json
 GET https://jbinteractions.exacttargetapps.com/fuelapi/interaction/v1/interactions/&lt;guid&gt;?extras=all&versionNumber=9
@@ -259,7 +259,7 @@ You can find your interaction's guid in the Network Tab (chrome) when you view i
 7. The Activity is configured.
 * If you hover again and click the edit icon, you should see the activities 'payload' in the Console tab of Developer Tools.  The payload should include the 'priority' change you just made.
 
-8. Add the "Update Case" activity to minute 1 of the interaction, then Configure, and Done. 
+8. Add the "Update Case" activity to minute 1 of the interaction, then Configure, and Done.
 
 9. Under the interaction name, set the interaction to "Multiple Entries" so your contact can go through it multiple times.
 
@@ -294,7 +294,7 @@ JSON Payload:
 	* It is the eventDefinitionKey which will look like "CONTACT-EVENT-&lt;guid&gt;"
 	* Choose the &lt;trigger key&gt; associated with your interaction.
 
- 
+
 
 After a minute or two, navigate to Admin / Contacts in Journey Builder.  You should see some statuses for your interaction.  If your desk.com case is not created within a few minutes, check to see if an error was thrown:
 * Find out what really happened to your interaction after firing its trigger.
@@ -302,8 +302,8 @@ After a minute or two, navigate to Admin / Contacts in Journey Builder.  You sho
 	* Open Admin / Contacts
 	* Click on the route: interaction/v1/interactions/traceevents/search
 	* NetworkTab/Response tab: a more detailed error is probably in there telling you why it failed.
-	
-	
+
+
 
 
 
