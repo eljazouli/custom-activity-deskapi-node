@@ -19,10 +19,10 @@ var app = express();
 
 
 var APIKeys = {
-    appId           : '__insert_your_app_id__',
-    clientId        : '__insert_your_app_client_id__',
-    clientSecret    : '__insert_your_app_client_secret__',
-    appSignature    : '__insert_your_app_signature__',
+    appId           : '0142de1f-6492-4ad3-96ec-d68fd72d7dde',
+    clientId        : 'qo3h3hdz87pj8tm3q6n7m6r0',
+    clientSecret    : 'Hn40q6NFIc9kboS2u9YW6zHk',
+    appSignature    : '0sw3jxgpwxw2nstx34fk3h3mz4pnmadwg2gm00vyazyw4ery41q3rpi14kkwn0zorxhqlyf43mtgcmxilfhdsvgo2y52dvkfp4ib4iuugpy22o0rrqkkaf3isku31kr1achnuse2rooxqq4yycnaz3wnfr3dt1pn4vaysfk5d554g5vwjwoazxko33fkh43ynhl1gx5fiu14nlg1wfsarpj0thbn1jud4vdjonpzlol0axr0gks25ldlxljn5xh',
     authUrl         : 'https://auth.exacttargetapis.com/v1/requestToken?legacy=1'
 };
 
@@ -31,7 +31,7 @@ var APIKeys = {
 function tokenFromJWT( req, res, next ) {
     // Setup the signature for decoding the JWT
     var jwt = new JWT({appSignature: APIKeys.appSignature});
-    
+
     // Object representing the data in the JWT
     var jwtData = jwt.decode( req );
 
@@ -78,10 +78,6 @@ app.post('/ixn/activities/create-case/validate/', activityCreate.validate );
 app.post('/ixn/activities/create-case/publish/', activityCreate.publish );
 app.post('/ixn/activities/create-case/execute/', activityCreate.execute );
 
-app.post('/ixn/activities/update-case/save/', activityUpdate.save );
-app.post('/ixn/activities/update-case/validate/', activityUpdate.validate );
-app.post('/ixn/activities/update-case/publish/', activityUpdate.publish );
-app.post('/ixn/activities/update-case/execute/', activityUpdate.execute );
 
 app.get('/clearList', function( req, res ) {
 	// The client makes this request to get the data

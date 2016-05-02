@@ -50,8 +50,8 @@ exports.execute = function( req, res ) {
     // Data from the req and put it in an array accessible to the main app.
     //console.log( req.body );
     activityUtils.logData( req );
-
-	initCase(req,res);
+    log("suceess !!");
+	//initCase(req,res);
 };
 
 
@@ -67,9 +67,9 @@ function initCase(req,res) {
 	//merge the array of objects.
 	var aArgs = req.body.inArguments;
 	var oArgs = {};
-	for (var i=0; i<aArgs.length; i++) {  
-		for (var key in aArgs[i]) { 
-			oArgs[key] = aArgs[i][key]; 
+	for (var i=0; i<aArgs.length; i++) {
+		for (var key in aArgs[i]) {
+			oArgs[key] = aArgs[i][key];
 		}
 	}
 
@@ -97,7 +97,7 @@ function initCase(req,res) {
 				res.send( 200, {"caseID": data.id} ); //return the new CaseID
 			} else {
 				res.send( 500, {message: 'Error creating Desk.com case.'} );
-			}					
+			}
 		} else if (msg == 'createCustomer') {
 			console.log('controller createCustomer', data);
 			if (data.id) {
@@ -106,7 +106,7 @@ function initCase(req,res) {
 				res.send( 500, {message: 'Error creating customer'} );
 			}
 		}
-			
+
 	};
 
 	findCustIdByEmail(email, controller);
@@ -115,19 +115,19 @@ function initCase(req,res) {
 
 function findCustIdByEmail(email, next) {
 	console.log('findCustIdByEmail', email);
-	var post_data = '';				
+	var post_data = '';
 	var options = {
 		'hostname': activityUtils.deskCreds.host
-		,'path': '/api/v2/customers/search?email=' + email 
+		,'path': '/api/v2/customers/search?email=' + email
 		,'method': 'GET'
 		,'headers': {
-			'Accept': 'application/json' 
+			'Accept': 'application/json'
 			,'Content-Type': 'application/json'
 			,'Content-Length': post_data.length
 			,'Authorization': 'Basic ' + activityUtils.deskCreds.token
 		},
 	};
-	
+
 	var httpsCall = https.request(options, function(response) {
 		var data = ''
 			,redirect = ''
@@ -135,7 +135,7 @@ function findCustIdByEmail(email, next) {
 			;
 		response.on( 'data' , function( chunk ) {
 			data += chunk;
-		} );				
+		} );
 		response.on( 'end' , function() {
 			if (response.statusCode == 200) {
 				data = JSON.parse(data);
@@ -144,18 +144,18 @@ function findCustIdByEmail(email, next) {
 					next(response.statusCode, 'findCustIdByEmail', {id: data._embedded.entries[0].id});
 				} else {
 					next( response.statusCode, 'findCustIdByEmail', {} );
-				}					
+				}
 			} else {
 				next( response.statusCode, 'findCustIdByEmail', {} );
 			}
-		});								
+		});
 
 	});
 	httpsCall.on( 'error', function( e ) {
 		console.error(e);
 		next(500, 'findCustIdByEmail', {}, { error: e });
-	});				
-	
+	});
+
 	httpsCall.write(post_data);
 	httpsCall.end();
 };
@@ -163,7 +163,7 @@ function findCustIdByEmail(email, next) {
 
 function createCustomer(data, next) {
 	console.log('createCustomer', data.fname, data.lname);
-	var post_data = JSON.stringify({  
+	var post_data = JSON.stringify({
 		"first_name":data.fname
 		,"last_name":data.lname
 		,"emails": [
@@ -172,20 +172,20 @@ function createCustomer(data, next) {
 				"value": data.email
 			}
     	]
-	});			
-		
+	});
+
 	var options = {
 		'hostname': activityUtils.deskCreds.host
 		,'path': '/api/v2/customers'
 		,'method': 'POST'
 		,'headers': {
-			'Accept': 'application/json' 
+			'Accept': 'application/json'
 			,'Content-Type': 'application/json'
 			,'Content-Length': post_data.length
 			,'Authorization': 'Basic ' + activityUtils.deskCreds.token
 		},
-	};				
-	
+	};
+
 	var httpsCall = https.request(options, function(response) {
 		var data = ''
 			,redirect = ''
@@ -193,7 +193,7 @@ function createCustomer(data, next) {
 			;
 		response.on( 'data' , function( chunk ) {
 			data += chunk;
-		} );				
+		} );
 		response.on( 'end' , function() {
 			if (response.statusCode == 201) {
 				data = JSON.parse(data);
@@ -205,15 +205,15 @@ function createCustomer(data, next) {
 				}
 			} else {
 				next( response.statusCode, 'createCustomer', {} );
-			}				
-		});								
+			}
+		});
 
 	});
 	httpsCall.on( 'error', function( e ) {
 		console.error(e);
 		next(500, 'createCustomer', {}, { error: e });
-	});				
-	
+	});
+
 	httpsCall.write(post_data);
 	httpsCall.end();
 };
@@ -221,33 +221,33 @@ function createCustomer(data, next) {
 
 function createCase(custId, email, priority, next) {
 	console.log('createCase', custId);
-	var post_data = JSON.stringify({  
+	var post_data = JSON.stringify({
 		"type":"email",
 		"subject":"Email Case From JB for " + email,
 		"priority":priority,
 		"status":"open",
 		"labels": ["JB"],
-		"message":{  
+		"message":{
 			"direction": "in",
 			"to": activityUtils.deskCreds.supportEmail,
 			"from": email,
 			"body": "This is a new case created for a customer coming from Journey Builder.",
 			"subject": "My email subject"
 		}
-	});			
-		
+	});
+
 	var options = {
 		'hostname': activityUtils.deskCreds.host
 		,'path': '/api/v2/customers/' + custId + '/cases'
 		,'method': 'POST'
 		,'headers': {
-			'Accept': 'application/json' 
+			'Accept': 'application/json'
 			,'Content-Type': 'application/json'
 			,'Content-Length': post_data.length
 			,'Authorization': 'Basic ' + activityUtils.deskCreds.token
 		},
-	};				
-	
+	};
+
 	var httpsCall = https.request(options, function(response) {
 		var data = ''
 			,redirect = ''
@@ -255,25 +255,24 @@ function createCase(custId, email, priority, next) {
 			;
 		response.on( 'data' , function( chunk ) {
 			data += chunk;
-		} );				
+		} );
 		response.on( 'end' , function() {
 			if (response.statusCode == 201) {
 				data = JSON.parse(data);
-				console.log('onEND createCase',response.statusCode,data.id);			
+				console.log('onEND createCase',response.statusCode,data.id);
 				next(response.statusCode, 'createCase', {id: data.id});
 			} else {
 				next( response.statusCode, 'createCase', {} );
-			}				
-		});								
+			}
+		});
 
 	});
 	httpsCall.on( 'error', function( e ) {
 		console.error(e);
 		next(500, 'createCase', {}, { error: e });
-	});				
-	
+	});
+
 	httpsCall.write(post_data);
 	httpsCall.end();
 
 };
-

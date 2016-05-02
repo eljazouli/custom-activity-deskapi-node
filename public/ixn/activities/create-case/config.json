@@ -8,21 +8,21 @@
     "type": "REST",
     "lang": {
         "en-US": {
-            "name": "Desk.com Create Case",
-            "description": "Activity for creating a case via Desk.com API."
+            "name": "Test Activity",
+            "description": "Activity for testing."
         }
     },
     "arguments": {
-        "execute": {       
+        "execute": {
 			"inArguments":[
-				{ "firstName":"{{Contact.Attribute.__your-de-name__.FirstName}}"},
-				{ "lastName":"{{Contact.Attribute.__your-de-name__.LastName}}"},
-				{ "emailAddress": "{{Contact.Default.Email}}"}							
+				{ "firstName":"{{Contact.Attribute.Master_Subscriber.FirstName}}"},
+				{ "lastName":"{{Contact.Attribute.Master_Subscriber.LastName}}"},
+				{ "emailAddress": "{{Contact.Attribute.Master_Subscriber.Email}}"}
 			],
             "outArguments": [
             	{ "caseID":"number" }
-			],			
-			"url": "https://__insert_your_custom_activity_endpoint__/ixn/activities/create-case/execute/",
+			],
+			"url": "https://custom-activity-zakaria.herokuapp.com/ixn/activities/create-case/execute/",
             "verb": "POST",
             "body": "",
             "header": "",
@@ -32,29 +32,29 @@
         }
     },
     "configurationArguments": {
-    	"applicationExtensionKey": "__activity-key__",
-        "defaults": { "priority": "4"},             
+    	"applicationExtensionKey": "test-activity-zakaria",
+        "defaults": { "priority": "4"},
         "save": {
-        	"url": "https://__insert_your_custom_activity_endpoint__/ixn/activities/create-case/save/",
+        	"url": "https://custom-activity-zakaria.herokuapp.com/ixn/activities/create-case/save/",
             "body": "",
             "verb": "POST",
             "useJwt": false
         },
         "publish": {
-        	"url": "https://__insert_your_custom_activity_endpoint__/ixn/activities/create-case/publish/",
+        	"url": "https://custom-activity-zakaria.herokuapp.com/ixn/activities/create-case/publish/",
             "verb": "POST",
             "body": "",
             "useJwt": false
         },
         "validate": {
-        	"url": "https://__insert_your_custom_activity_endpoint__/ixn/activities/create-case/validate/",
+        	"url": "https://custom-activity-zakaria.herokuapp.com/ixn/activities/create-case/validate/",
             "verb": "POST",
             "body": "",
-            "useJwt": false            
+            "useJwt": false
         }
     },
     "edit": {
-    	"url": "https://__insert_your_custom_activity_endpoint__/ixn/activities/create-case/",
+    	"url": "https://custom-activity-zakaria.herokuapp.com/ixn/activities/create-case/",
         "height": 400,
         "width": 500
     }
