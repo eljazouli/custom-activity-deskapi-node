@@ -3,7 +3,7 @@
 // Deps
 var activityUtils = require('./activityUtils');
 var activityCreate = require('./activityCreate');
-var activityUpdate = require('./activityUpdate');
+
 
 /*
  * GET home page.
@@ -30,4 +30,3 @@ exports.login = function( req, res ) {
 exports.logout = function( req, res ) {
     req.session.token = '';
 };
-
