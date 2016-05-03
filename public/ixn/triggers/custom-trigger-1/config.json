@@ -19,8 +19,36 @@
         }
     },
     "configurationArguments": {
-        "applicationExtensionKey": "custom-trigger-1"
+        "applicationExtensionKey": "<key from app center>"
     },
-    "filterExpressionEnabled": true,
-
+    "filterExpressionEnabled": false,
+    "wizardSteps": [
+        { "key": "selectCountry", "label": "selectCountry" },
+        { "key": "enterFirstName", "label": "enterFirstName" },
+        { "key": "enterLastName", "label": "enterLastName" },
+        { "key": "enterFavoriteFood", "label": "enterFavoriteFood", "active": false }
+    ],
+    "userInterfaces": {
+        "configModal": {
+            "url": "index.html"
+        },
+        "summary": [
+            {
+                "valuePath": "arguments.countryCode",
+                "label": "countryCodeLabel"
+            },
+            {
+                "valuePath": "arguments.firstName",
+                "label": "firstNameLabel"
+            },
+            {
+                "valuePath": "arguments.lastName",
+                "label": "lastNameLabel"
+            },
+            {
+                "valuePath": "arguments.favoriteFood",
+                "label": "favoriteFoodLabel"
+            }
+        ]
+    }
 }
