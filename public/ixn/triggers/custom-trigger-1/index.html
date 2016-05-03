@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Custom Event Test</title>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/require.js"></script>
+    <script type="text/javascript">
+        (function() {
+            var config = {
+                baseUrl: ''
+            };
+
+            var dependencies = [
+                'customEvent'
+            ];
+
+            require(config, dependencies);
+        })();
+    </script>
+
+    <!--Styles-->
+    <style type="text/css">
+        body {
+            padding: 15px;
+            margin: 0;
+        }
+        h1 {
+            font-size: 16px;
+        }
+        .step {
+            display: none;
+        }
+        #step1 {
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+<div id="step1" class="step">
+    <h1>Step 1: Country Code</h1>
+    <select id="select-country-code">
+        <option value="US">United States</option>
+        <option value="GB">United Kingdom</option>
+        <option value="BR">Brazil</option>
+        <option value="DE">Germany</option>
+    </select>
+    <br />
+    <button id="toggleLastStep">Toggle Favorite Food Step</button>
+</div>
+<div id="step2" class="step">
+    <h1>Step 2: First Name</h1>
+    <input id="select-first-name">
+</div>
+<div id="step3" class="step">
+    <h1>Step 3: Last Name</h1>
+    <input id="select-last-name">
+</div>
+<div id="step4" class="step">
+    <h1>Step 4: Favorite Food</h1>
+    <input id="select-favorite-food">
+</div>
+</body>
+</html>
