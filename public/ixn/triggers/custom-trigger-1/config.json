@@ -1,54 +1,58 @@
 {
-    "workflowApiVersion": "1.1",
-    "metaData": {
-        "icon": "images/icon.png"
-    },
-    "type": "Event",
-    "lang":{
-        "en-US": {
-            "name": "Event (Workflow API v1.1)",
-            "description": "An example event using workflow API v1.1 format.",
-            "selectCountry": "Select Country",
-            "enterFirstName": "Enter First Name",
-            "enterLastName": "Enter Last Name",
-            "enterFavoriteFood": "Enter Favorite Food",
-            "countryCodeLabel": "Country Code",
-            "firstNameLabel": "First Name",
-            "lastNameLabel": "Last Name",
-            "favoriteFoodLabel": "Favorite Food"
-        }
-    },
-    "configurationArguments": {
-        "applicationExtensionKey": "custom-trigger-1"
-    },
-    "filterExpressionEnabled": false,
-    "wizardSteps": [
-        { "key": "selectCountry", "label": "selectCountry" },
-        { "key": "enterFirstName", "label": "enterFirstName" },
-        { "key": "enterLastName", "label": "enterLastName" },
-        { "key": "enterFavoriteFood", "label": "enterFavoriteFood", "active": false }
-    ],
-    "userInterfaces": {
-        "configModal": {
-            "url": "index.html"
-        },
-        "summary": [
-            {
-                "valuePath": "arguments.countryCode",
-                "label": "countryCodeLabel"
-            },
-            {
-                "valuePath": "arguments.firstName",
-                "label": "firstNameLabel"
-            },
-            {
-                "valuePath": "arguments.lastName",
-                "label": "lastNameLabel"
-            },
-            {
-                "valuePath": "arguments.favoriteFood",
-                "label": "favoriteFoodLabel"
-            }
-        ]
+  "key": "custom-trigger-1",
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "images/icon.png"
+  },
+  "type": "Event",
+  "lang": {
+    "en-US": {
+      "name": "Event (Workflow API v1.1)",
+      "description": "An example event using workflow API v1.1 format.",
+      "selectCountry": "Select Country",
+      "enterFirstName": "Enter First Name",
+      "enterLastName": "Enter Last Name",
+      "enterFavoriteFood": "Enter Favorite Food",
+      "countryCodeLabel": "Country Code",
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "favoriteFoodLabel": "Favorite Food"
     }
+  },
+  "configurationArguments": {
+    "applicationExtensionKey": "custom-trigger-1"
+  },
+  "filterExpressionEnabled": false,
+  "wizardSteps": [{
+    "key": "selectCountry",
+    "label": "selectCountry"
+  }, {
+    "key": "enterFirstName",
+    "label": "enterFirstName"
+  }, {
+    "key": "enterLastName",
+    "label": "enterLastName"
+  }, {
+    "key": "enterFavoriteFood",
+    "label": "enterFavoriteFood",
+    "active": false
+  }],
+  "userInterfaces": {
+    "configModal": {
+      "url": "index.html"
+    },
+    "summary": [{
+      "valuePath": "arguments.countryCode",
+      "label": "countryCodeLabel"
+    }, {
+      "valuePath": "arguments.firstName",
+      "label": "firstNameLabel"
+    }, {
+      "valuePath": "arguments.lastName",
+      "label": "lastNameLabel"
+    }, {
+      "valuePath": "arguments.favoriteFood",
+      "label": "favoriteFoodLabel"
+    }]
+  }
 }
