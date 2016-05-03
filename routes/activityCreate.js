@@ -49,16 +49,34 @@ exports.validate = function( req, res ) {
 exports.execute = function( req, res ) {
     // Data from the req and put it in an array accessible to the main app.
     //console.log( req.body );
+        log("suceess !!");
     activityUtils.logData( req );
-    var fs = require('fs');
-    fs.writeFile("./test", "Hey there!", function(err) {
-    if(err) {
-        return console.log(err);
-    }
+    var http = require('http');
+var options = {
+  host: 'www.eljazou.li',
+  path: '/index.html'
+};
 
-    console.log("The file was saved!");
+var req = http.get(options, function(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+  // Buffer the body entirely for processing as a whole.
+  var bodyChunks = [];
+  res.on('data', function(chunk) {
+    // You can process streamed parts here...
+    bodyChunks.push(chunk);
+  }).on('end', function() {
+    var body = Buffer.concat(bodyChunks);
+    console.log('BODY: ' + body);
+    // ...and/or process the entire body here.
+  })
 });
-    log("suceess !!");
+
+req.on('error', function(e) {
+  console.log('ERROR: ' + e.message);
+});
+
 	//initCase(req,res);
 };
 
