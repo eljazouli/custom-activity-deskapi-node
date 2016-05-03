@@ -8,7 +8,6 @@ var path        = require('path');
 var request     = require('request');
 var routes      = require('./routes');
 var activityCreate   = require('./routes/activityCreate');
-var eventCustom   = require('./routes/eventCustom');
 var activityUtils    = require('./routes/activityUtils');
 var pkgjson = require( './package.json' );
 
@@ -77,11 +76,41 @@ app.post('/ixn/activities/create-case/save/', activityCreate.save );
 app.post('/ixn/activities/create-case/validate/', activityCreate.validate );
 app.post('/ixn/activities/create-case/publish/', activityCreate.publish );
 app.post('/ixn/activities/create-case/execute/', activityCreate.execute );
-// Custom Event Routes for interacting with Desk.com API
-app.post('/ixn/triggers/custom-trigger-1/save/', eventCustom.save );
-app.post('/ixn/triggers/custom-trigger-1/validate/', eventCustom.validate );
-app.post('/ixn/triggers/custom-trigger-1/publish/', eventCustom.publish );
-app.post('/ixn/triggers/custom-trigger-1/execute/', eventCustom.execute );
+
+// Abstract Event Handler
+app.post('/fireEvent/:type', function( req, res ) {
+    var data = req.body;
+    var triggerIdFromAppExtensionInAppCenter = 'custom-trigger-1';
+    var JB_EVENT_API = 'https://www.exacttargetapis.com/interaction-experimental/v1/events';
+    var reqOpts = {};
+
+    if( 'helloWorld' !== req.params.type ) {
+        res.send( 400, 'Unknown route param: "' + req.params.type +'"' );
+    } else {
+        // Hydrate the request
+        reqOpts = {
+            url: JB_EVENT_API,
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + req.session.token
+            },
+            body: JSON.stringify({
+                ContactKey: data.alternativeEmail,
+                EventDefinitionKey: triggerIdFromAppExtensionInAppCenter,
+                Data: data
+            })
+        };
+
+        request( reqOpts, function( error, response, body ) {
+            if( error ) {
+                console.error( 'ERROR: ', error );
+                res.send( response, 400, error );
+            } else {
+                res.send( body, 200, response);
+            }
+        }.bind( this ) );
+    }
+});
 
 
 

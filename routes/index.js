@@ -3,7 +3,6 @@
 // Deps
 var activityUtils = require('./activityUtils');
 var activityCreate = require('./activityCreate');
-var eventCustom   = require('./eventCustom');
 
 
 /*
