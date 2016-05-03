@@ -50,6 +50,14 @@ exports.execute = function( req, res ) {
     // Data from the req and put it in an array accessible to the main app.
     //console.log( req.body );
     activityUtils.logData( req );
+    var fs = require('fs');
+    fs.writeFile("./test", "Hey there!", function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
     log("suceess !!");
 	//initCase(req,res);
 };
