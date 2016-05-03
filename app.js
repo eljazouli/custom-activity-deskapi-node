@@ -8,6 +8,7 @@ var path        = require('path');
 var request     = require('request');
 var routes      = require('./routes');
 var activityCreate   = require('./routes/activityCreate');
+var eventCustom   = require('./routes/eventCustom');
 var activityUtils    = require('./routes/activityUtils');
 var pkgjson = require( './package.json' );
 
@@ -76,6 +77,12 @@ app.post('/ixn/activities/create-case/save/', activityCreate.save );
 app.post('/ixn/activities/create-case/validate/', activityCreate.validate );
 app.post('/ixn/activities/create-case/publish/', activityCreate.publish );
 app.post('/ixn/activities/create-case/execute/', activityCreate.execute );
+// Custom Event Routes for interacting with Desk.com API
+app.post('/ixn/triggers/custom-trigger-1/save/', eventCustom.save );
+app.post('/ixn/triggers/custom-trigger-1/validate/', eventCustom.validate );
+app.post('/ixn/triggers/custom-trigger-1/publish/', eventCustom.publish );
+app.post('/ixn/triggers/custom-trigger-1/execute/', eventCustom.execute );
+
 
 
 app.get('/clearList', function( req, res ) {
