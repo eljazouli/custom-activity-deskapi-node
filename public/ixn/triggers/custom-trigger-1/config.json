@@ -19,7 +19,7 @@
         }
     },
     "configurationArguments": {
-        "applicationExtensionKey": "<key from app center>"
+        "applicationExtensionKey": "custom-trigger-1"
     },
     "filterExpressionEnabled": false,
     "wizardSteps": [
